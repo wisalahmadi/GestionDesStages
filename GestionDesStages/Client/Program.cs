@@ -14,5 +14,22 @@ builder.Services.AddHttpClient("GestionDesStages.ServerAPI", client => client.Ba
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("GestionDesStages.ServerAPI"));
 
 builder.Services.AddApiAuthorization();
+// Pour appliquer les policy
+builder.Services.AddAuthorizationCore(authorizationOptions =>
+{
+    authorizationOptions.AddPolicy(
+        GestionDesStages.Shared.Policies.Policies.EstEntreprise,
+        GestionDesStages.Shared.Policies.Policies.EstEntreprisePolicy());
+    
+    authorizationOptions.AddPolicy(
+        GestionDesStages.Shared.Policies.Policies.EstEtudiant,
+        GestionDesStages.Shared.Policies.Policies.EstEtudiantPolicy());
+    /*
+    authorizationOptions.AddPolicy(
+        GestionDesStages.Shared.Policies.Policies.EstCoordonnateur,
+        GestionDesStages.Shared.Policies.Policies.EstCoordonnateurPolicy());
+    */
+});
+
 
 await builder.Build().RunAsync();

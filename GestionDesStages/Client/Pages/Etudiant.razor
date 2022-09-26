@@ -1,0 +1,4 @@
+﻿@page "/etudiant"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Policy = @GestionDesStages.Shared.Policies.Policies.EstEtudiant)]
+<h3>etudiant</h3>

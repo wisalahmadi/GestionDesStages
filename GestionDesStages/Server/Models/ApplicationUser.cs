@@ -4,5 +4,6 @@ namespace GestionDesStages.Server.Models
 {
     public class ApplicationUser : IdentityUser
     {
+
     }
 }
