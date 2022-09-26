@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -6,10 +6,6 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>GestionDesStages.Server-67EE5FAA-A9AA-4315-8B89-0AC796E79DDD</UserSecretsId>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Data\ApplicationDbContext.cs" />
-  </ItemGroup>
 
   <ItemGroup>
     <Content Remove="wwwroot\favicon.ico" />
