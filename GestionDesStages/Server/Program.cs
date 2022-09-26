@@ -14,10 +14,23 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
 builder.Services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<ApplicationDbContext>();
 
 builder.Services.AddIdentityServer()
-    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>(options => {
+        options.IdentityResources["openid"].UserClaims.Add("role");
+        options.ApiResources.Single().UserClaims.Add("role");
+    });
+System.IdentityModel.Tokens.Jwt.JwtSecurityTokenHandler
+    .DefaultInboundClaimTypeMap.Remove("role");
+builder.Services.AddAuthorizationCore(authorizationOptions =>
+{
+    authorizationOptions.AddPolicy(
+        GestionDesStages.Shared.Policies.Policies.EstEtudiant,
+        GestionDesStages.Shared.Policies.Policies.EstEtudiantPolicy());
+});
+
 
 builder.Services.AddAuthentication()
     .AddIdentityServerJwt();

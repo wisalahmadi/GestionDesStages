@@ -1,0 +1,4 @@
+﻿@page "/entreprise"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Policy = @GestionDesStages.Shared.Policies.Policies.EstEntreprise)]
+<h3>entreprise</h3>
