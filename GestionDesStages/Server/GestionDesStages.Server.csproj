@@ -8,10 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Data\ApplicationDbContext.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Remove="wwwroot\favicon.ico" />
   </ItemGroup>
 
