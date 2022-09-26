@@ -1,0 +1,13 @@
+﻿@page "/stageedit"
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize(Policy = @GestionDesStages.Shared.Policies.Policies.EstEntreprise)]
+
+<section>
+    <h3 style="background-color: black; color: white; padding: 5px 5px 5px 5px;" class="page-title">Détail des informations @(String.IsNullOrEmpty(Stage.Titre) ? "" : " | " + @Stage.Titre)</h3>
+    <EditForm Model="@Stage" OnValidSubmit="@HandleValidSubmit" OnInvalidSubmit="@HandleInvalidSubmit">
+        <DataAnnotationsValidator />
+        <ValidationSummary></ValidationSummary>
+        <button type="submit" class="btn btn-primary edit-btn">Ajouter le stage</button>
+        <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Annuler</a>
+    </EditForm>
+</section>
