@@ -1,6 +1,7 @@
 ﻿using GestionDesStages.Shared.Models;
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components;
+using System.Security.Claims;
 
 namespace GestionDesStages.Client.Pages
 {
@@ -14,10 +15,30 @@ namespace GestionDesStages.Client.Pages
 
         public Stage Stage { get; set; } = new Stage();
 
+        protected override async Task OnInitializedAsync()
+        {
+            // Appel du service pour obtenir la liste des status de stage
 
+            // Proposer des valeurs par défaut pour un nouveau stage
+            Stage = new Stage { StageStatutId = 1, Salaire = true, DateCreation = DateTime.Now };
+        }
 
         protected async Task HandleValidSubmit()
         {
+            if (Stage.StageId == Guid.Empty) //new
+            {
+                // Obtenir du tableau des revendications (CLAIMS en anglais) le Id de l'utilisateur en cours
+                Stage.Id = await ObtenirClaim("sub");
+                // Obtenir un nouveau GUID pour le nouveau stage
+                Stage.StageId = Guid.NewGuid();
+                // Appel du service pour sauvegarder le nouveau stage dans la base de données.
+            }
+            else
+            {
+                // Appel du service pour mettre à jour le stage existant dans la base de données.
+                // Retourner à l'accueil
+                NavigationManager.NavigateTo("/");
+            }
         }
 
         protected void HandleInvalidSubmit()
@@ -27,6 +48,23 @@ namespace GestionDesStages.Client.Pages
         protected void NavigateToOverview()
         {
             NavigationManager.NavigateTo("/");
+        }
+
+        /// <summary>
+        /// Pour obtenir un claim : sid (Id de l'utilisateur actuel), sub, auth_time, idp, amr, role, preffered_username, name
+        /// </summary>
+        /// <param name="ClaimName"></param>
+        /// <returns></returns>
+        private async Task<string> ObtenirClaim(string ClaimName)
+        {
+            // Obtenir tous les revendications (Claims) de l'utilisateur actuellement connecté.            
+            var authstate = await GetAuthenticationStateAsync.GetAuthenticationStateAsync();
+            var user = authstate.User;
+            IEnumerable<Claim> _claims = Enumerable.Empty<Claim>();
+            // Mettre les revendications dans un tableau
+            _claims = user.Claims;
+            // Obtenir du tableau des revendications le Id de l'utilisateur en cours
+            return user.FindFirst(c => c.Type == ClaimName)?.Value; ;
         }
     }
 }
