@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.ResponseCompression;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
+using GestionDesStages.Client.Interfaces;
+using GestionDesStages.Client.Services;
+using GestionDesStages.Server.Interface;
+using GestionDesStages.Server.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 // lol
@@ -37,6 +41,14 @@ builder.Services.AddAuthentication()
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
+builder.Services.AddScoped<IStageDataService, StageDataService>(); builder.Services.AddScoped<IStageStatutDataService, StageStatutDataService>();
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowCors",
+    builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+});
+builder.Services.AddScoped<IStageRepository, StageRepository>();
+builder.Services.AddScoped<IStageStatutRepository, StageStatutRepository>();
 
 var app = builder.Build();
 
@@ -52,7 +64,7 @@ else
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
-
+app.UseCors("AllowCors");
 app.UseHttpsRedirection();
 
 app.UseBlazorFrameworkFiles();

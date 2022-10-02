@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Components.Authorization;
 using Microsoft.AspNetCore.Components;
 using System.Security.Claims;
+using GestionDesStages.Client.Interfaces;
 
 namespace GestionDesStages.Client.Pages
 {
@@ -12,13 +13,18 @@ namespace GestionDesStages.Client.Pages
 
         [Inject]
         public AuthenticationStateProvider GetAuthenticationStateAsync { get; set; }
-
+        [Inject]
+        public IStageDataService StageDataService { get; set; }
+        [Inject]
+        public IStageStatutDataService StageStatutDataService { get; set; }
         public Stage Stage { get; set; } = new Stage();
+        public List<StageStatut> StageStatut { get; set; } = new List<StageStatut>();
+
 
         protected override async Task OnInitializedAsync()
         {
             // Appel du service pour obtenir la liste des status de stage
-
+            StageStatut = (await StageStatutDataService.GetAllStageStatuts()).ToList();
             // Proposer des valeurs par défaut pour un nouveau stage
             Stage = new Stage { StageStatutId = 1, Salaire = true, DateCreation = DateTime.Now };
         }
@@ -32,6 +38,8 @@ namespace GestionDesStages.Client.Pages
                 // Obtenir un nouveau GUID pour le nouveau stage
                 Stage.StageId = Guid.NewGuid();
                 // Appel du service pour sauvegarder le nouveau stage dans la base de données.
+                await StageDataService.AddStage(Stage);
+
             }
             else
             {

@@ -1,4 +1,6 @@
 using GestionDesStages.Client;
+using GestionDesStages.Client.Interfaces;
+using GestionDesStages.Client.Services;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Authentication;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
@@ -9,7 +11,6 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 builder.Services.AddHttpClient("GestionDesStages.ServerAPI", client => client.BaseAddress = new Uri(builder.HostEnvironment.BaseAddress))
     .AddHttpMessageHandler<BaseAddressAuthorizationMessageHandler>();
-
 // Supply HttpClient instances that include access tokens when making requests to the server project
 builder.Services.AddScoped(sp => sp.GetRequiredService<IHttpClientFactory>().CreateClient("GestionDesStages.ServerAPI"));
 
@@ -29,7 +30,9 @@ builder.Services.AddAuthorizationCore(authorizationOptions =>
         GestionDesStages.Shared.Policies.Policies.EstCoordonnateur,
         GestionDesStages.Shared.Policies.Policies.EstCoordonnateurPolicy());
     */
+
+    
 });
-
-
+//TODO: Modifier les points de terminaisons pour la production
+builder.Services.AddScoped<IStageDataService, StageDataService>(); builder.Services.AddScoped<IStageStatutDataService, StageStatutDataService>();
 await builder.Build().RunAsync();

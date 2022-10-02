@@ -23,7 +23,7 @@ namespace GestionDesStages.Shared.Models
         // Clé étrangère avec la table StageStatut
         public int StageStatutId { get; set; }
         // Etabir la relation 1:N avec la clé étrangère
-        public StageStatut StageStatut { get; set; }
+        public StageStatut? StageStatut { get; set; }
 
         public bool Salaire { get; set; }
 
