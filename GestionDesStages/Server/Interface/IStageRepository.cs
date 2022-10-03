@@ -7,5 +7,8 @@ namespace GestionDesStages.Server.Interface
         Stage AddStage(Stage stage);
         IEnumerable<Stage> GetAllStages();
         IEnumerable<Stage> GetAllStagesById(string id);
+        Stage GetStageByStageId(string StageId);
+        void DeleteStage(Guid StageId);
+
     }
 }

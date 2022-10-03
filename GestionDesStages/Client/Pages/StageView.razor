@@ -13,16 +13,46 @@
             <th>Description</th>
             <th>Statut</th>
             <th>Création</th>
+            <AuthorizeView Policy="@GestionDesStages.Shared.Policies.Policies.EstEntreprise">
+                <Authorized>
+                    <th></th>
+                </Authorized>
+            </AuthorizeView>
         </tr>
     </thead>
     <tbody>
         @foreach (var stage in Stages)
         {
             <tr>
-                <td>@stage.Titre</td>
+                <AuthorizeView>
+                    <Authorized>
+                        @if (context.User.IsInRole("Entreprise"))
+                        {
+                            <td>
+                                <a style="font-style:italic;text-decoration:underline" href="@($"stageedit/{stage.StageId}")">
+                                    @stage.Titre
+                                </a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>@stage.Titre</td>
+                        }
+                    </Authorized>
+                </AuthorizeView>
                 <td>@stage.Description</td>
                 <td>@stage.StageStatut?.DescriptionStatut</td>
                 <td>@stage.DateCreation.ToString("yyyy-MM-dd")</td>
+                <AuthorizeView Policy="@GestionDesStages.Shared.Policies.Policies.EstEntreprise">
+                    <Authorized>
+                        <td>
+                            <a class="btn btn-light" @onclick="(() => DeleteStage(stage.StageId))">
+                                Supprimer
+                            </a>
+                        </td>
+                    </Authorized>
+                </AuthorizeView>
+
             </tr>
         }
     </tbody>

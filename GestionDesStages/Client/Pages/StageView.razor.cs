@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Components.Authorization;
+using Microsoft.JSInterop;
 
 namespace GestionDesStages.Client.Pages
 {
@@ -21,7 +22,8 @@ namespace GestionDesStages.Client.Pages
         public AuthenticationStateProvider GetAuthenticationStateAsync { get; set; }
 
         public List<Stage> Stages { get; set; } = new List<Stage>();
-
+        [Inject]
+        public IJSRuntime JsRuntime { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
@@ -53,6 +55,18 @@ namespace GestionDesStages.Client.Pages
             // Obtenir du tableau des revendications le claim demandé pour l'utilisateur en cours
             // Attention s'il y a plusieurs claims du  même type (comme rôle) seul le premier est retourné FindFirst
             return user.FindFirst(c => c.Type == ClaimName)?.Value; ;
+        }
+
+
+        protected async Task DeleteStage(Guid stageId)
+        {
+            bool confirmed = await JsRuntime.InvokeAsync<bool>("confirm", "Souhaitez-vous supprimer définitivement cette ligne?");
+            if (confirmed)
+            {
+                await StageDataService.DeleteStage(stageId);
+                // Appel du service pour obtenir la liste des stages d'une entreprise précise
+                Stages = (await StageDataService.GetAllStages(await ObtenirClaim("sub"))).ToList();
+            }
         }
     }
 }
