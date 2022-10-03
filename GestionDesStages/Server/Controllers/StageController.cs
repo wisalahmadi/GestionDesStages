@@ -30,7 +30,15 @@ namespace GestionDesStages.Server.Controllers
 
             return Created("stage", created);
         }
-
-
+        [HttpGet]
+        public IActionResult GetAllStage()
+        {
+            return Ok(_stageRepository.GetAllStages());
+        }
+        [HttpGet("{id}")]
+        public IActionResult GetAllStage(string id)
+        {
+            return Ok(_stageRepository.GetAllStagesById(id));
+        }
     }
 }
