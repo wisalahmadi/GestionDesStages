@@ -38,6 +38,10 @@ builder.Services.AddAuthorizationCore(authorizationOptions =>
 
 builder.Services.AddAuthentication()
     .AddIdentityServerJwt();
+//Ajouter les repos dans le container de services
+builder.Services.AddScoped<IStageRepository, StageRepository>();
+builder.Services.AddScoped<IStageStatutRepository, StageStatutRepository>();
+builder.Services.AddScoped<IEtudiantRepository, EtudiantRepository>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();

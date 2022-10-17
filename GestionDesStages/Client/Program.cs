@@ -34,5 +34,7 @@ builder.Services.AddAuthorizationCore(authorizationOptions =>
     
 });
 //TODO: Modifier les points de terminaisons pour la production
-builder.Services.AddScoped<IStageDataService, StageDataService>(); builder.Services.AddScoped<IStageStatutDataService, StageStatutDataService>();
+builder.Services.AddScoped<IStageDataService, StageDataService>();
+builder.Services.AddScoped<IStageStatutDataService, StageStatutDataService>();
+builder.Services.AddScoped<IEtudiantDataService, EtudiantDataService>();
 await builder.Build().RunAsync();
