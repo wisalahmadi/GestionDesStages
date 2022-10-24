@@ -1,4 +1,5 @@
 ﻿@page "/stageedit"
+@page "/stageedit/{StageId}"
 @using GestionDesStages.Shared.Models
 @using Microsoft.AspNetCore.Authorization
 @attribute [Authorize(Policy = @GestionDesStages.Shared.Policies.Policies.EstEntreprise)]
@@ -51,7 +52,7 @@
             <label for="DateCreation" class="col-sm-3">Création: </label>
             <InputDate id="DateCreation" class="form-control col-sm-8" @bind-Value="@Stage.DateCreation" placeholder="Entrer la date création"></InputDate>
         </div>
-        <button type="submit" class="btn btn-primary edit-btn">Ajouter le stage</button>
-        <a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Annuler</a>
+		<button type="submit" class="btn btn-primary edit-btn">LibelleBoutonEnrigistrer</button>
+		<a class="btn btn-outline-primary" @onclick="@NavigateToOverview">Annuler</a>
     </EditForm>
 </section>
