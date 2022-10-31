@@ -37,4 +37,5 @@ builder.Services.AddAuthorizationCore(authorizationOptions =>
 builder.Services.AddScoped<IStageDataService, StageDataService>();
 builder.Services.AddScoped<IStageStatutDataService, StageStatutDataService>();
 builder.Services.AddScoped<IEtudiantDataService, EtudiantDataService>();
+builder.Services.AddScoped<IEntrepriseDataService, EntrepriseDataService>();
 await builder.Build().RunAsync();

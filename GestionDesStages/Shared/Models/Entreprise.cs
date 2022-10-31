@@ -7,22 +7,28 @@ using System.Threading.Tasks;
 
 namespace GestionDesStages.Shared.Models
 {
-    public class Etudiant
+    public class Entreprise
     {
+
         [Key]
         [StringLength(450)]
         public string Id { get; set; }
         [Required]
         [StringLength(100)]
+        public string Adresse { get; set; }
+        [Required]
+        [StringLength(100)]
         public string Nom { get; set; }
         [Required]
         [StringLength(100)]
-        public string Prenom { get; set; }
+        public string NomResponsable { get; set; }
+        [Required]
+        [StringLength(100)]
+        public string PrenomResponsable { get; set; }
         [StringLength(20)]
         [DataType(DataType.PhoneNumber)]
         public string TelephoneCellulaire { get; set; }
-        [Required]
-        [StringLength(100)]
-        public string adresse { get; set; }
+        [StringLength(20)]
+        public string PosteTelephonique { get; set; }
     }
 }
