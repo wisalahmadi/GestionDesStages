@@ -8,5 +8,7 @@ namespace GestionDesStages.Client.Interfaces
         Task<IEnumerable<Stage>> GetAllStages(string id=null);
         Task DeleteStage(Guid StageId);
 
+        Task<Stage> GetStageByStageId(string StageId);
+        Task UpdateStage(Stage stage);
     }
 }
