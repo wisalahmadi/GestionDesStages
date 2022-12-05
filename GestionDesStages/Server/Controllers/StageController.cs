@@ -80,5 +80,12 @@ namespace GestionDesStages.Server.Controllers
 
             return NoContent(); //success
         }
+        [HttpGet("GetCandidaturesStageByStageId/{StageId}")]
+        //[HttpGet("{StageId}")]
+        public IActionResult GetCandidaturesStageByStageId(string StageId)
+        {
+            return Ok(_stageRepository.GetCandidaturesStageByStageId(StageId));
+        }
+
     }
 }

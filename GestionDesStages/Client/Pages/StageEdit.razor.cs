@@ -21,6 +21,8 @@ namespace GestionDesStages.Client.Pages
 
         public Stage Stage { get; set; } = new Stage();
 
+        public List<PostulerStage> PostulerStage { get; set; } = new List<PostulerStage>();
+
         public string LibelleBoutonEnrigistrer { get; set; }
         public List<StageStatut> StageStatut { get; set; } = new List<StageStatut>();
 
@@ -44,6 +46,7 @@ namespace GestionDesStages.Client.Pages
             else
             {
                 Stage = (await StageDataService.GetStageByStageId(StageId));
+                PostulerStage = (await StageDataService.GetCandidaturesStageByStageId(StageId)).ToList();
                 LibelleBoutonEnrigistrer = "Mettre à jour les informations du stage";
             }
           

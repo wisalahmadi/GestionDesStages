@@ -10,5 +10,9 @@ namespace GestionDesStages.Client.Interfaces
 
         Task<Stage> GetStageByStageId(string StageId);
         Task UpdateStage(Stage stage);
+
+        Task<PostulerStage> PostulerStage(PostulerStage postulerStage);
+
+        Task<IEnumerable<PostulerStage>> GetCandidaturesStageByStageId(string StageId);
     }
 }

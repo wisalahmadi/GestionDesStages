@@ -12,6 +12,9 @@ namespace GestionDesStages.Server.Interface
 
         Stage UpdateStage(Stage stage);
 
+        PostulerStage PostuleStage(PostulerStage postulerStage);
+
+        IEnumerable<PostulerStage> GetCandidatureStageByStageId(string StageId);
 
     }
 }
