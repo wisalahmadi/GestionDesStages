@@ -4,6 +4,7 @@ using GestionDesStages.Server.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace GestionDesStages.Server.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20221205185445_AjoutTablePostuler")]
+    partial class AjoutTablePostuler
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -363,8 +365,6 @@ namespace GestionDesStages.Server.Data.Migrations
 
                     b.HasKey("StageId");
 
-                    b.HasIndex("Id");
-
                     b.HasIndex("StageStatutId");
 
                     b.ToTable("Stage");
@@ -546,19 +546,11 @@ namespace GestionDesStages.Server.Data.Migrations
 
             modelBuilder.Entity("GestionDesStages.Shared.Models.Stage", b =>
                 {
-                    b.HasOne("GestionDesStages.Shared.Models.Entreprise", "Entreprise")
-                        .WithMany()
-                        .HasForeignKey("Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("GestionDesStages.Shared.Models.StageStatut", "StageStatut")
                         .WithMany()
                         .HasForeignKey("StageStatutId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Entreprise");
 
                     b.Navigation("StageStatut");
                 });

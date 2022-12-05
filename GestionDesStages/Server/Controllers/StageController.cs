@@ -80,5 +80,26 @@ namespace GestionDesStages.Server.Controllers
 
             return NoContent(); //success
         }
+        [HttpPost("PostulerStage")]
+        public IActionResult PostulerStage([FromBody] PostulerStage postulerStage)
+        {
+            if (postulerStage == null)
+                return BadRequest();
+
+            // Utiliser la date/heure du serveur pour situer la soumission de la candidature dans le temps
+            postulerStage.DatePostule = System.DateTime.Now;
+
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            var created = _stageRepository.PostulerStage(postulerStage);
+
+            if (created != null)
+            {
+                return Created("postulerStage", created);
+            }
+            // Le candidat semble avoir déjà postulé
+            return BadRequest();
+        }
     }
 }
