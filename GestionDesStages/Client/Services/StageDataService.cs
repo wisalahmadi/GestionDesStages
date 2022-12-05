@@ -97,4 +97,20 @@ namespace GestionDesStages.Client.Services
 
     }
 
+
+        public async Task<PostulerStage> PostulerStage(PostulerStage postulerStage)
+        {
+            var donneesJson =
+                new StringContent(JsonSerializer.Serialize(postulerStage), Encoding.UTF8, "application/json");
+
+            var response = await _httpClient.PostAsync("api/stage/PostulerStage", donneesJson);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return await JsonSerializer.DeserializeAsync<PostulerStage>(await response.Content.ReadAsStreamAsync());
+            }
+
+            return null;
+        }
+    }
 }

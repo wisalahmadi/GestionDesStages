@@ -42,6 +42,7 @@ builder.Services.AddAuthentication()
 builder.Services.AddScoped<IStageRepository, StageRepository>();
 builder.Services.AddScoped<IStageStatutRepository, StageStatutRepository>();
 builder.Services.AddScoped<IEtudiantRepository, EtudiantRepository>();
+builder.Services.AddScoped<IEntrepriseRepository, EntrepriseRepository>();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -51,8 +52,6 @@ builder.Services.AddCors(options =>
     options.AddPolicy("AllowCors",
     builder => builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 });
-builder.Services.AddScoped<IStageRepository, StageRepository>();
-builder.Services.AddScoped<IStageStatutRepository, StageStatutRepository>();
 
 var app = builder.Build();
 

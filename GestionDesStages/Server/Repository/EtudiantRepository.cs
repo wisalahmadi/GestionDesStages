@@ -47,6 +47,7 @@ namespace GestionDesStages.Server.Repository
                 foundEtudiant.Prenom = etudiant.Prenom;
                 foundEtudiant.Nom = etudiant.Nom;
                 foundEtudiant.TelephoneCellulaire = etudiant.TelephoneCellulaire;
+                foundEtudiant.adresse = etudiant.adresse;
                 _appDbContext.SaveChanges();
             }
             return foundEtudiant;

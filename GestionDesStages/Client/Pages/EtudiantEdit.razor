@@ -26,6 +26,12 @@
         </div>
 
         <div class="form-group row">
+            <label asp-for="adresse" class="col-sm-3">Votre adresse :</label>
+            <InputText id="adresse" class="form-control col-sm-8" @bind-Value="@Etudiant.adresse" placeholder="Entrer votre adresse"></InputText>
+            <ValidationMessage class="offset-sm-3 col-sm-8" For="@(() => Etudiant.adresse)" />
+        </div>
+
+        <div class="form-group row">
             <label asp-for="TelephoneCellulaire" class="col-sm-3">Votre téléphone cellulaire :</label>
             <InputText id="TelephoneCellulaire" class="form-control col-sm-8" @bind-Value="@Etudiant.TelephoneCellulaire" placeholder="Entrer votre numéro de téléphone cellulaire"></InputText>
             <label class="offset-sm-3 col-sm-8 text-muted">Merci de saisir avec le format suivant : 9999999999)</label>
